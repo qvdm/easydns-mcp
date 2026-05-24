@@ -4,6 +4,18 @@
 set -euo pipefail
 umask 077
 
+# Get credentials from 1PW and t environment
+get_env() {
+  OP=/opt/homebrew/bin/op
+  OP_REF=op://Private/easyDNS-BCS2781/API_Keys/Production
+  export EASYDNS_TOKEN=$($OP read ${OP_REF}Token)
+  export EASYDNS_API_KEY=$($OP read ${OP_REF}Key)
+  export EASYDNS_SANDBOX=false
+  export EASYDNS_ALLOW_PRODUCTION=true
+  export EASYDNS_ENABLE_WRITES=true
+  export EASYDNS_ALLOWED_DOMAINS=quantumcondo.ca
+}
+
 # Validate required env vars
 check_credentials() {
   if [[ -z "${EASYDNS_TOKEN:-}" ]]; then

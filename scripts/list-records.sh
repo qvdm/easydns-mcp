@@ -14,5 +14,6 @@ if [[ $# -lt 1 ]]; then
 fi
 
 DOMAIN="$1"
+get_env
 check_credentials
 api_request GET "/zones/records/all/${DOMAIN}" | python3 -m json.tool 2>/dev/null || cat
